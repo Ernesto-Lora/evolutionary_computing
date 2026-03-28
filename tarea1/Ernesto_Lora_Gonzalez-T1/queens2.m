@@ -182,31 +182,28 @@ max_eval = 10000;
 recomb_rate = 1.0;
 mut_rate = 0.5;
 
-[best_board, best_val, run_data] = evolutionary_alg_queens(pop_size_max, max_eval, recomb_rate, mut_rate);
+% Create a folder to keep things clean (optional but recommended)
+if ~exist('experiment_results_2', 'dir')
+    mkdir('experiment_results_2');
+end
 
-vectorToChessboard(best_board)
-% % Create a folder to keep things clean (optional but recommended)
-% if ~exist('experiment_results_2', 'dir')
-%     mkdir('experiment_results_2');
-% end
-% 
-% fprintf('Starting %d runs of the evolutionary algorithm...\n', num_runs);
-% 
-% for run = 1:num_runs
-%     fprintf('Running execution %d of %d...\n', run, num_runs);
-% 
-%     % Call the algorithm
-%     [~, ~, run_data] = evolutionary_alg_queens(pop_size_max, max_eval, recomb_rate, mut_rate);
-% 
-%     % Generate a unique filename: e.g., run_01.mat, run_02.mat
-%     filename = sprintf('experiment_results_2/run_%02d.mat', run);
-% 
-%     % Save only the run_data struct into the file
-%     save(filename, 'run_data');
-% end
-% 
-% fprintf('Experiment complete! Data saved to the "experiment_results" folder.\n');
-% 
+fprintf('Starting %d runs of the evolutionary algorithm...\n', num_runs);
+
+for run = 1:num_runs
+    fprintf('Running execution %d of %d...\n', run, num_runs);
+    
+    % Call the algorithm
+    [~, ~, run_data] = evolutionary_alg_queens(pop_size_max, max_eval, recomb_rate, mut_rate);
+    
+    % Generate a unique filename: e.g., run_01.mat, run_02.mat
+    filename = sprintf('experiment_results_2/run_%02d.mat', run);
+    
+    % Save only the run_data struct into the file
+    save(filename, 'run_data');
+end
+
+fprintf('Experiment complete! Data saved to the "experiment_results" folder.\n');
+
 
 
 

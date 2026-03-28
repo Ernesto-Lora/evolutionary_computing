@@ -137,8 +137,6 @@ function new_cb = mutate(chessboard)
     new_cb(current_positions) = 1;
 end 
 
-% porcentange of pop-size for the parents selections
-
 function [best_board, best_val, run_data] = evolutionary_alg_queens(pop_size_max, ...
     max_eval, recombination_rate, mutation_rate)
     
@@ -238,8 +236,6 @@ function [best_board, best_val, run_data] = evolutionary_alg_queens(pop_size_max
 end
 
 
-% Report the process of selection of hyperparameters
-
 % Experiment Parameters
 num_runs = 30;
 pop_size_max = 100; 
@@ -247,32 +243,30 @@ max_eval = 10000;
 recomb_rate = 0.8;
 mut_rate = 0.5;
 
-[best_board, best_val, run_data] = evolutionary_alg_queens(pop_size_max, max_eval, recomb_rate, mut_rate);
+% Create a folder to keep things clean (optional but recommended)
+if ~exist('experiment_results', 'dir')
+    mkdir('experiment_results');
+end
 
-% % Create a folder to keep things clean (optional but recommended)
-% if ~exist('experiment_results', 'dir')
-%     mkdir('experiment_results');
-% end
-% 
-% fprintf('Starting %d runs of the evolutionary algorithm...\n', num_runs);
-% 
-% for run = 1:num_runs
-%     fprintf('Running execution %d of %d...\n', run, num_runs);
-% 
-%     % Call the algorithm
-%     [~, ~, run_data] = evolutionary_alg_queens(pop_size_max, max_eval, recomb_rate, mut_rate);
-% 
-%     % Generate a unique filename: e.g., run_01.mat, run_02.mat
-%     filename = sprintf('experiment_results/run_%02d.mat', run);
-% 
-%     % Save only the run_data struct into the file
-%     save(filename, 'run_data');
-% end
-% 
-% fprintf('Experiment complete! Data saved to the "experiment_results" folder.\n');
-% 
-% 
-% % [best_board, best_val] = evolutionary_alg_queens(150,10000,1.0,0.5);
-% % best_val
-% % reshape(best_board,8,8)
+fprintf('Starting %d runs of the evolutionary algorithm...\n', num_runs);
+
+for run = 1:num_runs
+    fprintf('Running execution %d of %d...\n', run, num_runs);
+    
+    % Call the algorithm
+    [~, ~, run_data] = evolutionary_alg_queens(pop_size_max, max_eval, recomb_rate, mut_rate);
+    
+    % Generate a unique filename: e.g., run_01.mat, run_02.mat
+    filename = sprintf('experiment_results/run_%02d.mat', run);
+    
+    % Save only the run_data struct into the file
+    save(filename, 'run_data');
+end
+
+fprintf('Experiment complete! Data saved to the "experiment_results" folder.\n');
+
+
+% [best_board, best_val] = evolutionary_alg_queens(150,10000,1.0,0.5);
+% best_val
+% reshape(best_board,8,8)
 
