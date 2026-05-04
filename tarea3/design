@@ -1,0 +1,33 @@
+desing
+
+genetic algoritm
+
+binary
+
+start the population
+we have to evaluate in the real space
+evaluate f(xi)
+while (eval < 10 000 (evals) )
+    father selection > muestreo deterministico
+    i have the list of fathers already shuffled
+    fathers{i}
+    for k in [1 to popsize/2]
+        Convert to binary x1 = fathers{2k-1}, x2 = fathers{2k}
+        convert to gray code x1,x2
+        crossover (Pc) > cruza de dos puntos
+        mutation (Pm) > mutacion uniforme
+    
+        convert from gray code to binary son1, son2
+        convert to real number
+        list_offspring (2k-1) = son1
+        list_offspring (2k) = son2
+        
+        list_offspring_fit (2k-1) = f(son1)
+        list_offspring_fit (2k) = f(son2)
+        
+        
+    Here we have the next generation of Popsize number of offsprings 
+    Include the best one (Elitism)
+    
+return solution
+

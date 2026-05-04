@@ -1,0 +1,10 @@
+function mutated = uniform_mutation(individual, mp)
+l = length(individual);
+mutated = individual;
+
+for i = 1:l
+    if rand < mp
+        mutated(i) = not(mutated(i));
+    end
+end
+end

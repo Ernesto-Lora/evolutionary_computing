@@ -1,0 +1,7 @@
+function [off1, off2] = two_point_crossover(father1, father2)
+l = length(g);
+points = randperm(l, 2);
+
+part1
+
+end
