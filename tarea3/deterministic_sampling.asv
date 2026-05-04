@@ -1,0 +1,32 @@
+function indx = deterministic_sampling(fitness)
+    scaled_fit = -fitness;
+    min_val = min(scaled_fit);
+    scaled_fit = scaled_fit + 2*abs(min_val);
+    
+    N = length(fitness);
+    total = sum(scaled_fit);
+    
+    % Expected value
+    expected = N * scaled_fit / total;
+    
+    % Integer part
+    int_part  = floor(expected);
+    frac_part = expected - int_part;
+    
+    % Include 'integer part' times
+    fathers = [];
+    for i = 1:N
+        fathers = [fathers, repmat(i, 1, int_part(i))];
+        
+    end
+    
+    % Fill remaining slots by largest fractional part
+    slots_left = N - length(fathers);
+    if slots_left > 0
+        [~, frac_order] = sort(frac_part, 'descend');
+        fathers = [fathers, frac_order(1:slots_left)];
+    end
+    
+    % Shuffle to create random pairs
+    indx = fathers(randperm(length(fathers)));
+end

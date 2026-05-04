@@ -8,29 +8,46 @@
 
 classdef representation1
     methods (Static)
-        function grayBool = gray_binaryRep1(x)
-            k = int16((x-(-10))*10^3);
-            % Convert to binary string
-            binStr = dec2bin(k, 15);
-
-            %convert to array of booleans
-            binBool = (binStr == '1'); 
-            
-            % Return the gray code 
-            grayBool = bin2gray_bool(binBool);
+        function grayBool_array = gray_array(x_array)
+            grayBool_array = false(10, 15);
+            for i = 1:10
+                grayBool_array(i, :) = gray_binaryRep1(x_array(i));
+            end
         end
         
-        function realVal = realRep(grayBool)
-            % Convert from gray boolean array to binary boolean array
-            binBool = gray2bin_bool(grayBool);
-            
-            % Convert boolean array back to character array ('0' and '1')
-            binStr = char(binBool + '0');
-            k = bin2dec(binStr);
-            realVal = -10 + k/(10^3);
+        function x_array = x_array_real( grayBool_array)
+            x_array=zeros(1,10);
+            for i = 1:10
+                x_array(i) = realRep(grayBool_array(i, :));
+            end
         end 
     end
 end
+
+% Helper functions
+
+function grayBool = gray_binaryRep1(x)
+    k = int16((x-(-10))*10^3);
+    % Convert to binary string
+    binStr = dec2bin(k, 15);
+
+    %convert to array of booleans
+    binBool = (binStr == '1'); 
+    
+    % Return the gray code 
+    grayBool = bin2gray_bool(binBool);
+end
+
+function realVal = realRep(grayBool)
+    % Convert from gray boolean array to binary boolean array
+    binBool = gray2bin_bool(grayBool);
+    
+    % Convert boolean array back to character array ('0' and '1')
+    binStr = char(binBool + '0');
+    k = bin2dec(binStr);
+    realVal = -10 + k/(10^3);
+end 
+
 
 % helper Functions. This where given by Gemini
 
