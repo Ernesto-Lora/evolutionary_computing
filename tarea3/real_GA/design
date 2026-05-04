@@ -1,0 +1,32 @@
+desing
+
+genetic algoritm
+
+binary
+
+start the population
+evaluate f(xi)
+while (eval < 10 000 (evals) )
+    father selection > probilistic binary tournament 
+        (repeat until have 3*popSize fathers)
+    i have the list of fathers
+    fathers_indexes
+    for k in [1 to popsize]
+    
+        crossover (Pc) > undx
+        mutation (Pm) > mutacion uniforme
+    
+        convert from gray code to binary son1, son2
+        convert to real number
+        list_offspring (2k-1) = son1
+        list_offspring (2k) = son2
+        
+        list_offspring_fit (2k-1) = f(son1)
+        list_offspring_fit (2k) = f(son2)
+        
+        
+    Here we have the next generation of Popsize number of offsprings 
+    Include the best one (Elitism)
+    
+return solution
+

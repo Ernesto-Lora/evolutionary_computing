@@ -1,0 +1,76 @@
+% For problem 1
+function GA_real(popSize, max_gen, cross_p, muta_p)
+    % Initial population
+    real_Xs =  generate_init_pop(popSize, -10, 10);
+    
+    % Evaluate initial population
+    
+    fitness = [];
+    for i = 1:popSize
+        fitness(i) = fun1(real_Xs{i});
+    end
+    disp(min(fitness))
+    offsprings = {};
+    for gen = 1:max_gen
+        % Selection
+        father_indexes = p_binary_tournament(fitness);
+
+        for j = 1:length(father_indexes)/3
+            
+            x1 = real_Xs{ father_indexes(3*j-2) };
+            x2 = real_Xs{ father_indexes(3*j-1) };
+            x3 = real_Xs{ father_indexes(3*j) };
+            
+
+            if rand < cross_p
+                [off1,off2] = undx(x1,x2,x3);
+                
+            else
+                % Clon
+                off1 = x1;
+                off2 = x2;
+            end
+    
+            if rand < muta_p
+                % get mutants of the same size 10x15
+                off1 = uniform_mutation_real(off1, muta_p);
+                off2 = uniform_mutation_real(off2, muta_p);
+            end
+            % Back to 1x10 real numbers
+            offsprings{2*j-1} = off1;
+            offsprings{2*j} = off2;
+
+        end
+
+        fitness_offspring = [];
+        for i = 1:popSize
+            fitness_offspring(i) = fun1(offsprings{i});
+        end
+
+
+        % Apply elitism
+        [best_parent_fitness, best_parent_idx] = min(fitness);
+        best_parent = real_Xs{best_parent_idx};
+
+        % Find the worst individual in the offspring population
+        [worst_offspring_fitness, worst_offspring_idx] = max(fitness_offspring);
+
+        % Replace worst offspring with best parent if parent is better
+        if best_parent_fitness < worst_offspring_fitness
+            offsprings{worst_offspring_idx} = best_parent;
+            fitness_offspring(worst_offspring_idx) = best_parent_fitness;
+        end
+
+        % Generational replacement
+        real_Xs = offsprings;
+        fitness = fitness_offspring;
+
+        %disp(min(fitness))
+    end
+    disp(min(fitness))
+end
+
+
+function f1 = fun1(x_array)
+f1 = sum( pow2( x_array ));
+end
