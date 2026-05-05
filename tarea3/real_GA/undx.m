@@ -4,18 +4,24 @@ xp = 0.5*(x1+x2);
 % d difference vector
 d = x2-x1;
 
+
 D2 =  norm(x3-x1)^2;
-term1 = (x3-x1)*(x2-1)';
+term1 = (x3-x1)*(x2-x1)';
 term2 = norm(x3-x1)*norm(x2-x1);
 
 D2 = D2*(1- (term1/term2)^2 );
-
+% x1
+% x2
+% x3
+% term2
+% D2
 D = sqrt(D2);
 
 % Above way to find ortonormal vectors where given by Gemini.
 % Find the orthonormal basis for the subspace perpendicular to d
 % By passing 'd' to null(), MATLAB solves d * E = 0.
 % E will be an N x (N-1) matrix where each column is a basis vector.
+% d
 E = null(d);
 
 % e1 = E(:, 1)'; % Transposed back to row vectors to match input style
@@ -27,17 +33,17 @@ sigma_epsilon2 = 0.25;
 sigma_eta2 = 0.0122;
 
 %randnormal(0,1,1,10)
-off1 = xp + randnormal(0,sigma_epsilon2);
+off1 = xp + d*randnormal(0,sigma_epsilon2);
 for i = 1:9
     off1 = off1 + D*randnormal(0,sigma_eta2)*E(:, i)';
 end
 
-off2 = xp - randnormal(0,sigma_epsilon2);
+off2 = xp - d*randnormal(0,sigma_epsilon2);
 for i = 1:9
-    off1 = off1 - D*randnormal(0,sigma_eta2)*E(:, i)';
+    off2 = off2 - D*randnormal(0,sigma_eta2)*E(:, i)';
 end
-
-
+% off1
+% off2
 end 
 
 

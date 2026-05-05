@@ -1,12 +1,17 @@
 % Loop the crossover to get the complete matrix
 function [off1, off2] = two_point_crossover(father1, father2)
-    off1 = false(10, 15);
-    off2 = false(10, 15);
-    for i = 1:10
-        [elem_off1, elem_off2] =  two_point_crossover_element(father1(i, :), father2(i, :));
-        off1(i, :) = elem_off1;
-        off2(i, :) = elem_off2;
-    end
+    [nrows, ncols] = size(father1);
+
+    % Flatten: 10×nbits → 1×(10*nbits)
+    flat_f1 = reshape(father1', 1, []);
+    flat_f2 = reshape(father2', 1, []);
+
+    % Crossover on the full flat chromosome
+    [flat_off1, flat_off2] = two_point_crossover_element(flat_f1, flat_f2);
+
+    % Reshape back: 1×(10*nbits) → 10×nbits
+    off1 = reshape(flat_off1, ncols, nrows)';
+    off2 = reshape(flat_off2, ncols, nrows)';
 end
 
 
@@ -21,8 +26,8 @@ function [off1, off2] = two_point_crossover_element(father1, father2)
     off2_1 = father2(1:points(1)) ;
     
     % Second part
-    off1_2 = father1(points(1)+1:points(2)) ;
-    off2_2 = father2(points(1)+1:points(2)) ;
+    off1_2 = father2(points(1)+1:points(2)) ;
+    off2_2 = father1(points(1)+1:points(2)) ;
     
     % Third part
     off1_3 = father1(points(2)+1:end) ;

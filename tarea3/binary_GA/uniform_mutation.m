@@ -1,6 +1,7 @@
 
 function off = uniform_mutation(grayBool_array, mp)
-    off = false(10, 15);
+    nbin = length(grayBool_array);
+    off = false(10, nbin);
     for i = 1:10
         off(i, :) = uniform_mutation_element(grayBool_array(i,:),mp );
     end
