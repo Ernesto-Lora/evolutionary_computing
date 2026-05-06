@@ -1,4 +1,4 @@
-function [best_params, best_avg_fitness, results_table] = calibrate_GA(fit_fun,lb,ub,repre)
+function [best_params, best_avg_fitness, results_table] = calibrate_GA(fit_fun,lb,up,repre)
     % 1. Define the discrete search space (the "grid")
     popSize_grid = [50, 100, 200];
     max_gen_grid = [100, 250];

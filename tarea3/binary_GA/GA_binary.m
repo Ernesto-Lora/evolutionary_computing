@@ -15,6 +15,7 @@ function [best_individual, best_fitness]  =GA_binary(popSize, max_gen, cross_p, 
     for gen = 1:max_gen
         % Selection
         father_indexes = deterministic_sampling(fitness);
+        %fprintf('iteration %d is\n', i);
 
         for j = 1:length(father_indexes)/2
             
@@ -26,7 +27,7 @@ function [best_individual, best_fitness]  =GA_binary(popSize, max_gen, cross_p, 
             % transform into the binary 15 
             % bin representation
             bin1 = repre.gray_array(x1);
-            bin2 = repre.gray_array(x1);
+            bin2 = repre.gray_array(x2);
             
 
             if rand < cross_p
@@ -40,8 +41,9 @@ function [best_individual, best_fitness]  =GA_binary(popSize, max_gen, cross_p, 
             end
     
             if rand < muta_p
-                % get mutants of the same size 10x15
                 off1 = uniform_mutation(off1, muta_p);
+            end
+            if rand < muta_p
                 off2 = uniform_mutation(off2, muta_p);
             end
             % Back to 1x10 real numbers
@@ -73,7 +75,7 @@ function [best_individual, best_fitness]  =GA_binary(popSize, max_gen, cross_p, 
         real_Xs = offsprings;
         fitness = fitness_offspring;
 
-        disp(min(fitness))
+        %disp(min(fitness))
     end
     % disp(min(fitness))
     best_individual = best_parent;

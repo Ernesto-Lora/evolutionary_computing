@@ -46,7 +46,7 @@ function [best_individual, best_fitness] = GA_real(popSize, max_gen, cross_p, mu
                 off2 = round(off2, 3);
                 
             end
-            % Back to 1x10 real numbers
+           
             offsprings{2*j-1} = off1;
             offsprings{2*j} = off2;
 
